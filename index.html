@@ -113,8 +113,8 @@
             font-weight: bold;
         }
 
-        /* Added styling for AbuseIPDB button */
-        .abuseipdb-button {
+        /* Added styling for External Reputation Check buttons */
+        .external-button {
             margin-top: 15px;
             padding: 10px 20px;
             background-color: #ff6b6b;
@@ -125,7 +125,7 @@
             font-size: 1.1em;
         }
 
-        .abuseipdb-button:hover {
+        .external-button:hover {
             background-color: #e40000;
         }
     </style>
@@ -155,8 +155,10 @@
             <!-- Results will be displayed here -->
         </div>
 
-        <!-- Button to open AbuseIPDB check page -->
-        <button class="abuseipdb-button" id="abuseipdb-check" style="display:none;" onclick="openAbuseIPDB()">Check on AbuseIPDB</button>
+        <!-- Buttons for External IP Reputation Services -->
+        <button class="external-button" id="abuseipdb-check" style="display:none;" onclick="openAbuseIPDB()">Check on AbuseIPDB</button>
+        <button class="external-button" id="alienvault-check" style="display:none;" onclick="openAlienVault()">Check on AlienVault OTX</button>
+        <button class="external-button" id="talos-check" style="display:none;" onclick="openTalos()">Check on Talos Intelligence</button>
     </div>
 
     <!-- Secondary Title -->
@@ -218,11 +220,13 @@
             });
         }
 
-        // Add IP Reputation Checker code from script.js here
+        // IP Reputation Checker code
         async function checkIPReputation() {
             const ipAddress = document.getElementById('ipAddress').value;
             const resultsDiv = document.getElementById('results');
             const abuseButton = document.getElementById('abuseipdb-check');
+            const alienButton = document.getElementById('alienvault-check');
+            const talosButton = document.getElementById('talos-check');
             resultsDiv.innerHTML = '';  // Clear previous results
 
             if (!validateIP(ipAddress)) {
@@ -246,8 +250,10 @@
                 displayError('Error fetching data from IPinfo API.');
             }
 
-            // Show the AbuseIPDB button to check reputation on AbuseIPDB
+            // Show the external service buttons
             abuseButton.style.display = 'block';
+            alienButton.style.display = 'block';
+            talosButton.style.display = 'block';
         }
 
         function validateIP(ip) {
@@ -281,6 +287,18 @@
             const ipAddress = document.getElementById('ipAddress').value;
             const abuseURL = `https://www.abuseipdb.com/check/${ipAddress}`;
             window.open(abuseURL, '_blank'); // Opens the AbuseIPDB page in a new tab
+        }
+
+        function openAlienVault() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const alienVaultURL = `https://otx.alienvault.com/indicator/ip/${ipAddress}`;
+            window.open(alienVaultURL, '_blank'); // Opens the AlienVault OTX page in a new tab
+        }
+
+        function openTalos() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const talosURL = `https://talosintelligence.com/reputation_center/lookup?search=${ipAddress}`;
+            window.open(talosURL, '_blank'); // Opens the Talos Intelligence page in a new tab
         }
     </script>
 </body>
