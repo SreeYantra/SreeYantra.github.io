@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open-Source Threat Intelligence Platform</title>
+    <title>SecuraStep - Integrated search for OSINT Information</title>
     <style>
         body {
             font-family: Calibri, sans-serif;
@@ -96,11 +96,85 @@
         .reputation-buttons button:hover {
             background-color: #e40000;
         }
+
+        /* New section for Vulnerability and Certificates */
+        .category-section {
+            margin-top: 30px;
+        }
+
+        .category-title {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-links a {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-links a:hover {
+            background-color: #218838;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .note {
+            font-size: 1.2em;
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .trusted-list {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Open-Source Threat Intelligence Platform</h1>
+    <!-- Page Title with tagline -->
+    <h1>SecuraStep</h1>
+    <p style="text-align: center; font-size: 1.2em; color: #777;">Integrated search for OSINT Information</p>
 
     <!-- Main content container -->
     <div class="main-container">
@@ -136,141 +210,141 @@
         </div>
     </div>
 
+    <!-- Vulnerability Category -->
+    <div class="category-section">
+        <h2 class="category-title">Vulnerability</h2>
+        <div class="category-links">
+            <a href="https://www.ssllabs.com/ssltest/analyze.html?d=google.com" target="_blank">SSL Labs</a>
+        </div>
+    </div>
+
+    <!-- Certificates Category -->
+    <div class="category-section">
+        <h2 class="category-title">Certificates</h2>
+        <div class="category-links">
+            <a href="https://crt.sh/?q=google.com" target="_blank">CRT.sh</a>
+        </div>
+    </div>
+
+    <!-- Table with OSINT Resources -->
+    <h1>Open-Source Threat Intelligence Platforms</h1>
+    <p style="text-align: center; font-size: 1.2em;">
+        Upon exploring open-source threat intelligence resources, it can be challenging to determine which sites are trustworthy.
+        Therefore, we have consolidated a list of the top webpages based on their reputation.
+    </p>
+
+    <div class="note">
+        <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
+    </div>
+
+    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Type</th>
+                <th>URL</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Table content will be loaded here -->
+        </tbody>
+    </table>
+
     <script>
-        function checkReputation() {
-            const input = document.getElementById('inputField').value;
-            const resultsDiv = document.getElementById('results');
-            const reputationBtn = document.getElementById('reputationBtn');
+        // Load table content dynamically
+        fetch('table-content.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('table-body').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading table content:', error));
 
-            if (!input) {
-                resultsDiv.innerHTML = "<p class='error'>Please enter an IP address or domain name.</p>";
-                resultsDiv.style.display = 'block';
-                return;
-            }
+        // Function to filter table rows based on search input
+        function searchTable() {
+            const input = document.getElementById('search-bar');
+            const filter = input.value.toLowerCase();
+            const rows = document.querySelectorAll('#table-body tr');
 
-            resultsDiv.innerHTML = `<p>Checking reputation for: <strong>${input}</strong></p>`;
-            resultsDiv.style.display = 'block';
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                let match = false;
 
-            // Show the external reputation check buttons
-            reputationBtn.style.display = 'block';
+                for (let i = 0; i < cells.length; i++) {
+                    const cell = cells[i];
+                    if (cell && cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
 
-        // IP Reputation Check functions
+        // Open external reputation checks in new tabs
         function openAbuseIPDB() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('abuseipdb-ip').checked) {
-                window.open(`https://www.abuseipdb.com/check/${input}`, '_blank');
-            }
+            const ip = document.getElementById('inputField').value;
+            window.open(`https://www.abuseipdb.com/check/${ip}`, '_blank');
         }
 
         function openAlienVault() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('alienvault-ip').checked) {
-                window.open(`https://otx.alienvault.com/indicator/ip/${input}`, '_blank');
-            }
+            const ip = document.getElementById('inputField').value;
+            window.open(`https://otx.alienvault.com/indicator/ip/${ip}`, '_blank');
         }
 
         function openTalos() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('talos-ip').checked) {
-                window.open(`https://talosintelligence.com/reputation_center/lookup?search=${input}`, '_blank');
-            }
-        }
-
-        // Domain Reputation Check functions
-        function openAbuseIPDBDomain() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('abuseipdb-domain').checked) {
-                window.open(`https://www.abuseipdb.com/check/${input}`, '_blank');
-            }
-        }
-
-        function openAlienVaultDomain() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('alienvault-domain').checked) {
-                window.open(`https://otx.alienvault.com/indicator/domain/${input}`, '_blank');
-            }
-        }
-
-        function openTalosDomain() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('talos-domain').checked) {
-                window.open(`https://www.talosintelligence.com/reputation_center/lookup?search=${input}`, '_blank');
-            }
-        }
-
-        function openThreatMiner() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('threatminer-domain').checked) {
-                window.open(`https://www.threatminer.org/domain.php?q=${input}`, '_blank');
-            }
-        }
-
-        function openVirusTotal() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('virustotal-domain').checked) {
-                window.open(`https://www.virustotal.com/gui/domain/${input}`, '_blank');
-            }
-        }
-
-        // New functions for additional URL services
-        function openBluecoat() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('bluecoat-domain').checked) {
-                window.open(`https://sitereview.bluecoat.com/#/lookup-result/${input}`, '_blank');
-            }
-        }
-
-        function openWebCheck() {
-            const input = document.getElementById('inputField').value;
-            if (document.getElementById('webcheck-domain').checked) {
-                window.open(`https://web-check.xyz/check/https%3A%2F%2F${encodeURIComponent(input)}`, '_blank');
-            }
+            const ip = document.getElementById('inputField').value;
+            window.open(`https://www.talosintelligence.com/reputation_center/lookup?search=${ip}`, '_blank');
         }
 
         function openReputation() {
-            const input = document.getElementById('inputField').value;
-            const reputationUrls = [];
-
-            // Add dynamic URLs based on selected checkboxes
-            if (document.getElementById('abuseipdb-ip').checked) {
-                reputationUrls.push(`https://www.abuseipdb.com/check/${input}`);
-            }
-            if (document.getElementById('alienvault-ip').checked) {
-                reputationUrls.push(`https://otx.alienvault.com/indicator/ip/${input}`);
-            }
-            if (document.getElementById('talos-ip').checked) {
-                reputationUrls.push(`https://talosintelligence.com/reputation_center/lookup?search=${input}`);
-            }
-
-            // Add domain checks
-            if (document.getElementById('abuseipdb-domain').checked) {
-                reputationUrls.push(`https://www.abuseipdb.com/check/${input}`);
-            }
-            if (document.getElementById('alienvault-domain').checked) {
-                reputationUrls.push(`https://otx.alienvault.com/indicator/domain/${input}`);
-            }
-            if (document.getElementById('talos-domain').checked) {
-                reputationUrls.push(`https://www.talosintelligence.com/reputation_center/lookup?search=${input}`);
-            }
-            if (document.getElementById('threatminer-domain').checked) {
-                reputationUrls.push(`https://www.threatminer.org/domain.php?q=${input}`);
-            }
-            if (document.getElementById('virustotal-domain').checked) {
-                reputationUrls.push(`https://www.virustotal.com/gui/domain/${input}`);
-            }
-            if (document.getElementById('bluecoat-domain').checked) {
-                reputationUrls.push(`https://sitereview.bluecoat.com/#/lookup-result/${input}`);
-            }
-            if (document.getElementById('webcheck-domain').checked) {
-                reputationUrls.push(`https://web-check.xyz/check/https%3A%2F%2F${encodeURIComponent(input)}`);
-            }
-
-            if (reputationUrls.length > 0) {
-                window.open(reputationUrls[0], '_blank');
-            }
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.abuseipdb.com/check/${domain}`, '_blank');
         }
-    </script>
 
+        // Handle domain reputation functions
+        function openAbuseIPDBDomain() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.abuseipdb.com/check/${domain}`, '_blank');
+        }
+
+        function openAlienVaultDomain() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://otx.alienvault.com/indicator/domain/${domain}`, '_blank');
+        }
+
+        function openTalosDomain() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.talosintelligence.com/reputation_center/lookup?search=${domain}`, '_blank');
+        }
+
+        function openThreatMiner() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.threatminer.org/host.php?q=${domain}`, '_blank');
+        }
+
+        function openVirusTotal() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.virustotal.com/gui/domain/${domain}/detection`, '_blank');
+        }
+
+        function openBluecoat() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://sitereview.bluecoat.com/#/url/${domain}`, '_blank');
+        }
+
+        function openWebCheck() {
+            const domain = document.getElementById('inputField').value;
+            window.open(`https://www.webcheck.com/check/${domain}`, '_blank');
+        }
+
+    </script>
 </body>
 </html>
