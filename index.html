@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open-Source Threat Intelligence Platforms</title>
+    <title>Open-Source Threat Intelligence Platform</title>
     <style>
         body {
-            font-family: Calibri, sans-serif;
+            font-family: Calibri, sans-serif; /* Changed to Calibri */
             margin: 20px;
             background-color: #f4f4f9;
         }
@@ -29,10 +29,31 @@
             text-align: center;
             color: #333;
         }
+        #main-title {
+            font-size: 3em; /* Large title */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
-    <h1>Threat Intelligence Platforms</h1>
+    <!-- Large Title -->
+    <h1 id="main-title">OSINT Resources</h1>
+    
+    <!-- Secondary Title -->
+    <h1>Open-Source Threat Intelligence Platform</h1>
+    
+    <!-- Search Bar -->
+    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
+
     <table>
         <thead>
             <tr>
@@ -55,6 +76,36 @@
                 document.getElementById('table-body').innerHTML = data;
             })
             .catch(error => console.error('Error loading table content:', error));
+
+        // Function to filter table rows based on search input
+        function searchTable() {
+            const input = document.getElementById('search-bar');
+            const filter = input.value.toLowerCase();
+            const rows = document.querySelectorAll('#table-body tr');
+
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                let match = false;
+
+                // Loop through each cell in the row
+                for (let i = 0; i < cells.length; i++) {
+                    const cell = cells[i];
+                    if (cell) {
+                        if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                            match = true;
+                            break; // No need to check further cells if one is matched
+                        }
+                    }
+                }
+
+                // Show or hide row based on whether it matches the search
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
