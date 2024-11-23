@@ -112,6 +112,22 @@
             color: red;
             font-weight: bold;
         }
+
+        /* Added styling for AbuseIPDB button */
+        .abuseipdb-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+
+        .abuseipdb-button:hover {
+            background-color: #e40000;
+        }
     </style>
 </head>
 <body>
@@ -138,6 +154,9 @@
         <div class="results" id="results">
             <!-- Results will be displayed here -->
         </div>
+
+        <!-- Button to open AbuseIPDB check page -->
+        <button class="abuseipdb-button" id="abuseipdb-check" style="display:none;" onclick="openAbuseIPDB()">Check on AbuseIPDB</button>
     </div>
 
     <!-- Secondary Title -->
@@ -203,6 +222,7 @@
         async function checkIPReputation() {
             const ipAddress = document.getElementById('ipAddress').value;
             const resultsDiv = document.getElementById('results');
+            const abuseButton = document.getElementById('abuseipdb-check');
             resultsDiv.innerHTML = '';  // Clear previous results
 
             if (!validateIP(ipAddress)) {
@@ -225,6 +245,9 @@
             } catch (error) {
                 displayError('Error fetching data from IPinfo API.');
             }
+
+            // Show the AbuseIPDB button to check reputation on AbuseIPDB
+            abuseButton.style.display = 'block';
         }
 
         function validateIP(ip) {
@@ -235,25 +258,29 @@
         function displayError(message) {
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = `<p class="error">${message}</p>`;
+            resultsDiv.style.display = 'block';
         }
 
         function displayResults(data) {
+            const { ip, city, region, country, loc, postal, timezone } = data;
             const resultsDiv = document.getElementById('results');
-            resultsDiv.style.display = 'block';  // Show results
-
-            const { ip, city, region, country, loc, org, postal, timezone } = data;
-
             const resultHTML = `
-                <h3>IP Address Information</h3>
+                <h3>IP Information</h3>
                 <p><strong>IP Address:</strong> ${ip}</p>
                 <p><strong>Location:</strong> ${city}, ${region}, ${country}</p>
-                <p><strong>Location Coordinates:</strong> ${loc}</p>
-                <p><strong>Organization:</strong> ${org}</p>
+                <p><strong>Coordinates:</strong> ${loc}</p>
                 <p><strong>Postal Code:</strong> ${postal}</p>
                 <p><strong>Timezone:</strong> ${timezone}</p>
             `;
 
             resultsDiv.innerHTML = resultHTML;
+            resultsDiv.style.display = 'block';
+        }
+
+        function openAbuseIPDB() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const abuseURL = `https://www.abuseipdb.com/check/${ipAddress}`;
+            window.open(abuseURL, '_blank'); // Opens the AbuseIPDB page in a new tab
         }
     </script>
 </body>
