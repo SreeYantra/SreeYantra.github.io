@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Threat Intelligence Platforms</title>
+    <title>Open-Source Threat Intelligence Platforms</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Calibri, sans-serif;
             margin: 20px;
             background-color: #f4f4f9;
         }
@@ -42,22 +42,19 @@
                 <th>Purpose</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-    <td>1</td>
-    <td>Domain Reputation Checker</td>
-    <td><a href="https://www.virustotal.com" target="_blank">VirusTotal</a></td>
-    <td>Analyze domain reputation for threats and malware.</td>
-</tr>
-<tr>
-    <td>2</td>
-    <td>Domain Reputation Checker</td>
-    <td><a href="https://www.threatminer.org" target="_blank">ThreatMiner</a></td>
-    <td>Gather threat intelligence on domains and IPs.</td>
-</tr>
-
-          
+        <tbody id="table-body">
+            <!-- Table content will be loaded here -->
         </tbody>
     </table>
+
+    <script>
+        // Load table content dynamically
+        fetch('table-content.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('table-body').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading table content:', error));
+    </script>
 </body>
 </html>
