@@ -82,54 +82,6 @@
             transform: scale(0.9);
         }
 
-        /* Added styles for IP/Domain Reputation buttons */
-        .reputation-buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .reputation-buttons button {
-            margin: 10px;
-            background-color: #ff6b6b;
-        }
-
-        .reputation-buttons button:hover {
-            background-color: #e40000;
-        }
-
-        /* New section for Vulnerability and Certificates */
-        .category-section {
-            margin-top: 30px;
-        }
-
-        .category-title {
-            text-align: center;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .category-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .category-links a {
-            padding: 10px 20px;
-            font-size: 1.1em;
-            text-decoration: none;
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .category-links a:hover {
-            background-color: #218838;
-        }
-
         /* Table Styling */
         table {
             width: 100%;
@@ -145,10 +97,11 @@
         }
         th {
             background-color: #f2f2f2;
+            text-align: center; /* Center-aligned table headings */
         }
 
         #search-bar {
-            width: 100%;
+            width: 40%; /* Reduced size for search bar below the note section */
             padding: 10px;
             margin-bottom: 20px;
             font-size: 16px;
@@ -180,7 +133,6 @@
     <div class="main-container">
         <div class="input-container">
             <input type="text" id="inputField" placeholder="Enter IP Address or Domain" />
-            <button onclick="checkReputation()">Check Reputation</button>
         </div>
 
         <!-- IP Reputation Checkboxes -->
@@ -198,33 +150,19 @@
             <label><input type="checkbox" id="threatminer-domain" onclick="openThreatMiner()"> ThreatMiner</label>
             <label><input type="checkbox" id="virustotal-domain" onclick="openVirusTotal()"> VirusTotal</label>
             <label><input type="checkbox" id="bluecoat-domain" onclick="openBluecoat()"> Bluecoat SiteReview</label>
-            <label><input type="checkbox" id="webcheck-domain" onclick="openWebCheck()"> Web-Check</label>
         </div>
 
         <!-- Display results -->
         <div class="results" id="results"></div>
-
-        <!-- Buttons for external reputation checks -->
-        <div class="reputation-buttons">
-            <button id="reputationBtn" style="display:none;" onclick="openReputation()">View Reputation</button>
-        </div>
     </div>
 
-    <!-- Vulnerability Category -->
-    <div class="category-section">
-        <h2 class="category-title">Vulnerability</h2>
-        <div class="category-links">
-            <a href="https://www.ssllabs.com/ssltest/analyze.html?d=google.com" target="_blank">SSL Labs</a>
-        </div>
+    <!-- Note Section for Search -->
+    <div class="note">
+        <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
     </div>
 
-    <!-- Certificates Category -->
-    <div class="category-section">
-        <h2 class="category-title">Certificates</h2>
-        <div class="category-links">
-            <a href="https://crt.sh/?q=google.com" target="_blank">CRT.sh</a>
-        </div>
-    </div>
+    <!-- Search Bar for Table -->
+    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
 
     <!-- Table with OSINT Resources -->
     <h1>Open-Source Threat Intelligence Platforms</h1>
@@ -232,12 +170,6 @@
         Upon exploring open-source threat intelligence resources, it can be challenging to determine which sites are trustworthy.
         Therefore, we have consolidated a list of the top webpages based on their reputation.
     </p>
-
-    <div class="note">
-        <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
-    </div>
-
-    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
 
     <table>
         <thead>
@@ -304,12 +236,6 @@
             window.open(`https://www.talosintelligence.com/reputation_center/lookup?search=${ip}`, '_blank');
         }
 
-        function openReputation() {
-            const domain = document.getElementById('inputField').value;
-            window.open(`https://www.abuseipdb.com/check/${domain}`, '_blank');
-        }
-
-        // Handle domain reputation functions
         function openAbuseIPDBDomain() {
             const domain = document.getElementById('inputField').value;
             window.open(`https://www.abuseipdb.com/check/${domain}`, '_blank');
@@ -327,24 +253,19 @@
 
         function openThreatMiner() {
             const domain = document.getElementById('inputField').value;
-            window.open(`https://www.threatminer.org/host.php?q=${domain}`, '_blank');
+            window.open(`https://www.threatminer.org/domain.php?q=${domain}`, '_blank');
         }
 
         function openVirusTotal() {
             const domain = document.getElementById('inputField').value;
-            window.open(`https://www.virustotal.com/gui/domain/${domain}/detection`, '_blank');
+            window.open(`https://www.virustotal.com/gui/domain/${domain}`, '_blank');
         }
 
         function openBluecoat() {
             const domain = document.getElementById('inputField').value;
-            window.open(`https://sitereview.bluecoat.com/#/url/${domain}`, '_blank');
+            window.open(`https://sitereview.bluecoat.com/#/lookup/${domain}`, '_blank');
         }
-
-        function openWebCheck() {
-            const domain = document.getElementById('inputField').value;
-            window.open(`https://www.webcheck.com/check/${domain}`, '_blank');
-        }
-
     </script>
+
 </body>
 </html>
