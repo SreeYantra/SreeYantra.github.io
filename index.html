@@ -122,7 +122,7 @@
             line-height: 1.6;
         }
 
-        .dynamic-links {
+        .other {
             margin-top: 20px;
             font-size: 1.1em;
             text-align: center;
@@ -141,8 +141,8 @@
             <input type="text" id="inputField" placeholder="Enter IP Address or Domain" />
         </div>
 
-        <!-- Display dynamic URLs -->
-        <div class="dynamic-links" id="dynamicLinks">
+        <!-- Display others -->
+        <div class="other" id="Others">
             <p id="sslLabsLink"></p>
             <p id="crtshLink"></p>
             <p id="whoisLink"></p>
@@ -150,19 +150,20 @@
 
         <!-- IP Reputation Checkboxes -->
         <div class="checkbox-container" id="ipCheckboxes">
-            <label><input type="checkbox" id="abuseipdb-ip" onclick="openAbuseIPDB()"> AbuseIPDB</label>
-            <label><input type="checkbox" id="alienvault-ip" onclick="openAlienVault()"> AlienVault OTX</label>
-            <label><input type="checkbox" id="talos-ip" onclick="openTalos()"> Talos Intelligence</label>
+            <label><input type="checkbox" id="abuseipdb-ip" onclick="openAbuseIPDB()"> IP.AbuseIPDB</label>
+            <label><input type="checkbox" id="alienvault-ip" onclick="openAlienVault()"> IP.AlienVault OTX</label>
+            <label><input type="checkbox" id="talos-ip" onclick="openTalos()"> IP.Talos Intelligence</label>
+            <label><input type="checkbox" id="virustotal-ip" onclick="virustotal()"> IP.VirusTotal</label>
         </div>
 
         <!-- Domain Reputation Checkboxes -->
         <div class="checkbox-container" id="domainCheckboxes">
-            <label><input type="checkbox" id="abuseipdb-domain" onclick="openAbuseIPDBDomain()"> AbuseIPDB</label>
-            <label><input type="checkbox" id="alienvault-domain" onclick="openAlienVaultDomain()"> AlienVault OTX</label>
-            <label><input type="checkbox" id="talos-domain" onclick="openTalosDomain()"> Talos Intelligence</label>
-            <label><input type="checkbox" id="threatminer-domain" onclick="openThreatMiner()"> ThreatMiner</label>
-            <label><input type="checkbox" id="virustotal-domain" onclick="openVirusTotal()"> VirusTotal</label>
-            <label><input type="checkbox" id="bluecoat-domain" onclick="openBluecoat()"> Bluecoat SiteReview</label>
+            <label><input type="checkbox" id="abuseipdb-domain" onclick="openAbuseIPDBDomain()"> D-AbuseIPDB</label>
+            <label><input type="checkbox" id="alienvault-domain" onclick="openAlienVaultDomain()"> D-AlienVault OTX</label>
+            <label><input type="checkbox" id="talos-domain" onclick="openTalosDomain()"> D-Talos Intelligence</label>
+            <label><input type="checkbox" id="threatminer-domain" onclick="openThreatMiner()"> D-ThreatMiner</label>
+            <label><input type="checkbox" id="virustotal-domain" onclick="openVirusTotal()"> D-VirusTotal</label>
+            <label><input type="checkbox" id="bluecoat-domain" onclick="openBluecoat()"> D-Bluecoat SiteReview</label>
         </div>
 
         <!-- Display results -->
@@ -248,6 +249,11 @@
             const ip = document.getElementById('inputField').value;
             window.open(`https://www.talosintelligence.com/reputation_center/lookup?search=${ip}`, '_blank');
         }
+        
+        function openTalos() {
+            const ip = document.getElementById('inputField').value;
+            window.open(`https://www.virustotal.com/gui/ip-address/${ip}`, '_blank');
+        }
 
         function openAbuseIPDBDomain() {
             const domain = document.getElementById('inputField').value;
@@ -279,6 +285,9 @@
             window.open(`https://sitereview.bluecoat.com/#/lookup/${domain}`, '_blank');
         }
 
+
+
+        
         // Update dynamic URLs for SSL Labs, CRT.sh, and Whois DomainTools
         document.getElementById('inputField').addEventListener('input', function() {
             const inputValue = this.value;
