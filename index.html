@@ -6,7 +6,7 @@
     <title>Open-Source Threat Intelligence Platform</title>
     <style>
         body {
-            font-family: Calibri, sans-serif; /* Changed to Calibri */
+            font-family: Calibri, sans-serif;
             margin: 20px;
             background-color: #f4f4f9;
         }
@@ -42,14 +42,36 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        .note {
+            font-size: 1.2em;
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .trusted-list {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
     <!-- Large Title -->
     <h1 id="main-title">OSINT Resources</h1>
-    
+
+    <!-- Informational Text -->
+    <p style="text-align: center; font-size: 1.2em;">
+        Upon exploring open-source threat intelligence resources, it can be challenging to determine which sites are trustworthy. 
+        Therefore, we have consolidated a list of the top webpages based on their reputation.
+    </p>
+
+    <!-- Note for Users -->
+    <div class="note">
+        <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
+    </div>
+
     <!-- Secondary Title -->
-    <h1>Open-Source Threat Intelligence Platform</h1>
+    <h1>Open-Source Threat Intelligence Platforms</h1>
     
     <!-- Search Bar -->
     <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
