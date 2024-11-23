@@ -53,6 +53,65 @@
             font-size: 1.1em;
             line-height: 1.6;
         }
+
+        /* IP Reputation Checker Styles */
+        .ip-check-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .ip-check-container input[type="text"] {
+            padding: 10px;
+            font-size: 1.1em;
+            width: 60%;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .ip-check-container button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .ip-check-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .results p {
+            font-size: 1.1em;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +127,17 @@
     <!-- Note for Users -->
     <div class="note">
         <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
+    </div>
+
+    <!-- IP Reputation Checker Section -->
+    <div class="ip-check-container">
+        <h2>IP Reputation Checker</h2>
+        <input type="text" id="ipAddress" placeholder="Enter IP Address" />
+        <button onclick="checkIPReputation()">Check Reputation</button>
+
+        <div class="results" id="results">
+            <!-- Results will be displayed here -->
+        </div>
     </div>
 
     <!-- Secondary Title -->
@@ -127,6 +197,63 @@
                     row.style.display = 'none';
                 }
             });
+        }
+
+        // Add IP Reputation Checker code from script.js here
+        async function checkIPReputation() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';  // Clear previous results
+
+            if (!validateIP(ipAddress)) {
+                displayError('Please enter a valid IP address.');
+                return;
+            }
+
+            const apiKey = 'YOUR_IPINFO_API_KEY'; // Replace with your API Key
+            const url = `https://ipinfo.io/${ipAddress}/json?token=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.error) {
+                    displayError(`Error: ${data.error.message}`);
+                } else {
+                    displayResults(data);
+                }
+            } catch (error) {
+                displayError('Error fetching data from IPinfo API.');
+            }
+        }
+
+        function validateIP(ip) {
+            const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            return regex.test(ip);
+        }
+
+        function displayError(message) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `<p class="error">${message}</p>`;
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.display = 'block';  // Show results
+
+            const { ip, city, region, country, loc, org, postal, timezone } = data;
+
+            const resultHTML = `
+                <h3>IP Address Information</h3>
+                <p><strong>IP Address:</strong> ${ip}</p>
+                <p><strong>Location:</strong> ${city}, ${region}, ${country}</p>
+                <p><strong>Location Coordinates:</strong> ${loc}</p>
+                <p><strong>Organization:</strong> ${org}</p>
+                <p><strong>Postal Code:</strong> ${postal}</p>
+                <p><strong>Timezone:</strong> ${timezone}</p>
+            `;
+
+            resultsDiv.innerHTML = resultHTML;
         }
     </script>
 </body>
