@@ -123,6 +123,8 @@
             <label><input type="checkbox" id="talos-domain" onclick="openTalosDomain()"> Talos Intelligence</label>
             <label><input type="checkbox" id="threatminer-domain" onclick="openThreatMiner()"> ThreatMiner</label>
             <label><input type="checkbox" id="virustotal-domain" onclick="openVirusTotal()"> VirusTotal</label>
+            <label><input type="checkbox" id="bluecoat-domain" onclick="openBluecoat()"> Bluecoat SiteReview</label>
+            <label><input type="checkbox" id="webcheck-domain" onclick="openWebCheck()"> Web-Check</label>
         </div>
 
         <!-- Display results -->
@@ -211,10 +213,26 @@
             }
         }
 
+        // New functions for additional URL services
+        function openBluecoat() {
+            const input = document.getElementById('inputField').value;
+            if (document.getElementById('bluecoat-domain').checked) {
+                window.open(`https://sitereview.bluecoat.com/#/lookup-result/${input}`, '_blank');
+            }
+        }
+
+        function openWebCheck() {
+            const input = document.getElementById('inputField').value;
+            if (document.getElementById('webcheck-domain').checked) {
+                window.open(`https://web-check.xyz/check/https%3A%2F%2F${encodeURIComponent(input)}`, '_blank');
+            }
+        }
+
         function openReputation() {
             const input = document.getElementById('inputField').value;
             const reputationUrls = [];
 
+            // Add dynamic URLs based on selected checkboxes
             if (document.getElementById('abuseipdb-ip').checked) {
                 reputationUrls.push(`https://www.abuseipdb.com/check/${input}`);
             }
@@ -224,6 +242,8 @@
             if (document.getElementById('talos-ip').checked) {
                 reputationUrls.push(`https://talosintelligence.com/reputation_center/lookup?search=${input}`);
             }
+
+            // Add domain checks
             if (document.getElementById('abuseipdb-domain').checked) {
                 reputationUrls.push(`https://www.abuseipdb.com/check/${input}`);
             }
@@ -239,11 +259,18 @@
             if (document.getElementById('virustotal-domain').checked) {
                 reputationUrls.push(`https://www.virustotal.com/gui/domain/${input}`);
             }
+            if (document.getElementById('bluecoat-domain').checked) {
+                reputationUrls.push(`https://sitereview.bluecoat.com/#/lookup-result/${input}`);
+            }
+            if (document.getElementById('webcheck-domain').checked) {
+                reputationUrls.push(`https://web-check.xyz/check/https%3A%2F%2F${encodeURIComponent(input)}`);
+            }
 
             if (reputationUrls.length > 0) {
                 window.open(reputationUrls[0], '_blank');
             }
         }
     </script>
+
 </body>
 </html>
