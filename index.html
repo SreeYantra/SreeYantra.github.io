@@ -14,7 +14,7 @@
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 10px; /* Reduced space between h1 and tagline */
+            margin-bottom: 8px; /* Reduced space between h1 and tagline */
         }
 
         p {
@@ -159,13 +159,6 @@
             <input type="text" id="inputField" placeholder="Enter IP Address or Domain" />
         </div>
 
-        <!-- Display others -->
-        <div class="other" id="Others">
-            <p id="sslLabsLink"></p>
-            <p id="crtshLink"></p>
-            <p id="whoisLink"></p>
-        </div>
-
         <!-- IP Reputation Checkboxes -->
         <div class="checkbox-container" id="ipCheckboxes">
             <label><input type="checkbox" id="abuseipdb-ip" onclick="openAbuseIPDB()"> IP.AbuseIPDB</label>
@@ -198,9 +191,6 @@
         <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
     </div>
 
-    <!-- Search Bar for Table -->
-    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
-
     <!-- Table with OSINT Resources -->
     <h1>Open-Source Threat Intelligence Platforms</h1>
     <p style="text-align: center; font-size: 1.2em;">
@@ -208,13 +198,16 @@
         Therefore, we have consolidated a list of the top webpages based on their reputation.
     </p>
 
+    <!-- Search Bar for Table -->
+    <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
+
     <table>
         <thead>
             <tr>
-                <th>Serial Number</th>
-                <th>Type</th>
+                <th>S.No</th>
+                <th>Category</th>
                 <th>URL</th>
-                <th>Purpose</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody id="table-body">
