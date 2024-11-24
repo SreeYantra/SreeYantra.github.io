@@ -160,19 +160,6 @@
       margin: 0;
     }
     
-    /* CSS for the weather info at top-right */
-    .weather-info {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px;
-      background-color: #1d3557;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      font-size: 1.1em;
-      color: #ffffff;
-    }
-    
      </style>
 </head>
 <body>
@@ -238,35 +225,6 @@
 
   
   <script>
-    // Function to fetch and display weather information based on IP address
-    window.onload = getWeatherByIP;
-
-    function getWeatherByIP() {
-      const ipapiKey = '2d69ff6d0c0f4229b1e6a279653eeb45';
-      const weatherApiKey = '51fe0d5051214c0abd571136242411';
-      
-      fetch(`https://api.ipapi.com/api/check?access_key=${ipapiKey}`).then(response => response.json()).then(data => {
-        const city = data.city;
-        const latitude = data.latitude;
-        const longitude = data.longitude;
-        
-        fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${latitude},${longitude}&aqi=no`)
-          .then(weatherResponse => weatherResponse.json())
-          .then(weatherData => {
-            const weather = weatherData.current.condition.text;
-            const temperature = weatherData.current.temp_c;
-            document.getElementById('weather-data').innerHTML = `Weather in ${city}: ${weather}, ${temperature}°C`;
-          })
-          .catch(error => {
-            console.error('Error fetching weather data:', error);
-            document.getElementById('weather-data').innerHTML = 'Unable to fetch weather data.';
-          });
-      }).catch(error => {
-        console.error('Error fetching IP location:', error);
-        document.getElementById('weather-data').innerHTML = 'Unable to fetch location data.';
-      });
-    }
-
     // Function to open specific URL based on selected IP or domain and platform
     function openUrl(type, platform) {
       const input = document.getElementById('inputField').value.trim();
@@ -317,9 +275,5 @@
     }
   </script>
 
-  <!-- Weather Information box -->
-  <div class="weather-info" id="weather-info">
-    <p id="weather-data">Fetching weather info...</p>
-  </div>
 </body>
 </html>
