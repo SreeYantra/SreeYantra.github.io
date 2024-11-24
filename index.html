@@ -10,18 +10,32 @@
       font-family: Calibri, sans-serif;
       margin: 20px;
       background-color: #f4f4f9;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark Mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    h1, h2 {
+      color: inherit;
+    }
+
+    p {
+      color: inherit;
     }
 
     h1 {
       text-align: center;
-      color: #333;
       margin-bottom: 8px;
     }
 
     p {
       text-align: center;
       font-size: 0.8em;
-      color: #777;
       margin-top: 0;
     }
 
@@ -29,7 +43,6 @@
       text-align: center;
       margin-top: 30px;
       font-size: 1.5em;
-      color: #333;
     }
 
     .main-container {
@@ -39,6 +52,12 @@
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    body.dark-mode .main-container {
+      background-color: #333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
 
     .input-container {
@@ -55,6 +74,12 @@
       outline: none;
     }
 
+    body.dark-mode input[type="text"] {
+      background-color: #444;
+      color: #e0e0e0;
+      border-color: #555;
+    }
+
     button {
       padding: 10px 20px;
       font-size: 1.1em;
@@ -64,6 +89,10 @@
       border: none;
       border-radius: 5px;
       transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode button {
+      background-color: #0056b3;
     }
 
     button:hover {
@@ -79,96 +108,50 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .error {
-      color: red;
-      font-weight: bold;
+    body.dark-mode .results {
+      background-color: #444;
+      color: #e0e0e0;
     }
 
-    .checkbox-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .checkbox-container input[type="checkbox"] {
-      transform: scale(0.9);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f2f2f2;
-      text-align: center;
-    }
-
-    #search-bar {
-      width: 40%;
-      padding: 10px;
-      margin-bottom: 20px;
+    /* Scroll-to-top button */
+    #scrollToTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 10px 20px;
       font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
     }
 
-    .note {
+    #scrollToTopBtn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Dark mode button */
+    #darkModeBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
       font-size: 1.2em;
-      color: red;
-      text-align: center;
-      margin-bottom: 20px;
+      cursor: pointer;
     }
 
-    .trusted-list {
-      margin-bottom: 30px;
-      font-size: 1.1em;
-      line-height: 1.6;
-    }
-
-    .other {
+    /* Additional CSS for content */
+    .checkbox-container, .trusted-list, .note, .weather-info, .other {
       margin-top: 20px;
       font-size: 1.1em;
-      text-align: center;
     }
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      width: 100px;
-      margin-right: 15px;
-    }
-
-    h1 {
-      margin: 0;
-      color: #333;
-      font-size: 2em;
-    }
-
-    p {
-      font-size: 0.8em;
-      color: #777;
-      margin: 0;
-    }
-
-    /* CSS for the weather info at top-right */
+    /* Weather info box */
     .weather-info {
       position: fixed;
       top: 20px;
@@ -180,7 +163,6 @@
       font-size: 1.1em;
       color: #333;
     }
-
   </style>
 </head>
 <body>
@@ -191,14 +173,14 @@
       <p>Step-by-step security in Digital Age</p>
     </div>
   </div>
-  
+
   <h2>Integrated search for OSINT Information</h2>
-  
+
   <div class="main-container">
     <div class="input-container">
       <input type="text" id="inputField" placeholder="Enter IP Address or Domain" />
     </div>
-    
+
     <div class="checkbox-container" id="ipCheckboxes">
       <label><input type="checkbox" id="abuseipdb-ip" onclick="openAbuseIPDB()"> IP.AbuseIPDB</label>
       <label><input type="checkbox" id="alienvault-ip" onclick="openAlienVault()"> IP.AlienVault OTX</label>
@@ -206,7 +188,7 @@
       <label><input type="checkbox" id="virustotal-ip" onclick="virustotal()"> IP.VirusTotal</label>
       <label><input type="checkbox" id="whois-ip" onclick="openWhois()"> IP.Whois (DomainTools)</label>
     </div>
-    
+
     <div class="checkbox-container" id="domainCheckboxes">
       <label><input type="checkbox" id="abuseipdb-domain" onclick="openAbuseIPDBDomain()"> D.AbuseIPDB</label>
       <label><input type="checkbox" id="alienvault-domain" onclick="openAlienVaultDomain()"> D.AlienVault OTX</label>
@@ -227,13 +209,13 @@
     Upon exploding open-source threat intelligence resources, it can be challenging to determine which sites are trustworthy.
     Therefore, we have consolidated a list of the top webpages based on their reputation that can be used by analysts in day-to-day activities.
   </p>
-  
+
   <div class="note">
     <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
   </div>
 
   <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
-  
+
   <table>
     <thead>
       <tr>
@@ -246,40 +228,45 @@
     <tbody id="table-body"></tbody>
   </table>
 
-  <script>
-    fetch('table-content.html').then(response => response.text()).then(data => {
-      document.getElementById('table-body').innerHTML = data;
-    }).catch(error => console.error('Error loading table content:', error));
+  <!-- Scroll-to-top button -->
+  <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
 
-    function searchTable() {
-      const input = document.getElementById('search-bar');
-      const filter = input.value.toLowerCase();
-      const rows = document.querySelectorAll('#table-body tr');
-      rows.forEach(row => {
-        const cells = row.getElementsByTagName('td');
-        let match = false;
-        for (let i = 0; i < cells.length; i++) {
-          const cell = cells[i];
-          if (cell && cell.textContent.toLowerCase().indexOf(filter) > -1) {
-            match = true;
-            break;
-          }
-        }
-        row.style.display = match ? '' : 'none';
-      });
+  <!-- Dark mode toggle button -->
+  <button id="darkModeBtn" onclick="toggleDarkMode()">🌙</button>
+
+  <script>
+    // Scroll-to-top function
+    window.onscroll = function() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollToTopBtn").style.display = "block";
+      } else {
+        document.getElementById("scrollToTopBtn").style.display = "none";
+      }
+    };
+
+    function scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
 
+    // Dark mode toggle
+    function toggleDarkMode() {
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+    }
+
+    // Weather info fetching function
     window.onload = getWeatherByIP;
 
     function getWeatherByIP() {
       const ipapiKey = '2d69ff6d0c0f4229b1e6a279653eeb45';
       const weatherApiKey = '51fe0d5051214c0abd571136242411';
-      
+
       fetch(`https://api.ipapi.com/api/check?access_key=${ipapiKey}`).then(response => response.json()).then(data => {
         const city = data.city;
         const latitude = data.latitude;
         const longitude = data.longitude;
-        
+
         fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${latitude},${longitude}&aqi=no`)
           .then(weatherResponse => weatherResponse.json())
           .then(weatherData => {
