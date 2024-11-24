@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SecuraStep - Step-by-step security in Digital Age</title>
+  <title>SecuraStep - Step-by-step Security in the Digital Age</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     body {
@@ -11,27 +11,23 @@
       margin: 20px;
       background-color: #f4f4f9;
     }
-
     h1 {
       text-align: center;
       color: #333;
       margin-bottom: 8px;
     }
-
     p {
       text-align: center;
       font-size: 0.8em;
       color: #777;
       margin-top: 0;
     }
-
     h2 {
       text-align: center;
       margin-top: 30px;
       font-size: 1.5em;
       color: #333;
     }
-
     .main-container {
       max-width: 900px;
       margin: 40px auto;
@@ -40,11 +36,9 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     .input-container {
       text-align: center;
     }
-
     input[type="text"] {
       padding: 10px;
       font-size: 1.1em;
@@ -54,7 +48,7 @@
       border-radius: 5px;
       outline: none;
     }
-
+    
     button {
       padding: 10px 20px;
       font-size: 1.1em;
@@ -65,12 +59,11 @@
       border-radius: 5px;
       transition: background-color 0.3s ease;
     }
-
-    button:hover {
+      button:hover {
       background-color: #0056b3;
     }
-
-    .results {
+    
+        .results {
       display: none;
       margin-top: 20px;
       padding: 20px;
@@ -79,11 +72,11 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .error {
+        .error {
       color: red;
       font-weight: bold;
     }
-
+    
     .checkbox-container {
       display: flex;
       justify-content: center;
@@ -91,12 +84,11 @@
       gap: 15px;
       margin-top: 20px;
     }
-
     .checkbox-container input[type="checkbox"] {
       transform: scale(0.9);
     }
-
-    table {
+    
+        table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
@@ -131,8 +123,8 @@
       text-align: center;
       margin-bottom: 20px;
     }
-
-    .trusted-list {
+    
+        .trusted-list {
       margin-bottom: 30px;
       font-size: 1.1em;
       line-height: 1.6;
@@ -167,21 +159,21 @@
       color: #777;
       margin: 0;
     }
-
+    
     /* CSS for the weather info at top-right */
     .weather-info {
       position: fixed;
       top: 20px;
       right: 20px;
       padding: 10px;
-      background-color: #f9f9f9;
+      background-color: #1d3557;
       border-radius: 5px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       font-size: 1.1em;
-      color: #333;
+      color: #ffffff;
     }
-
-  </style>
+    
+     </style>
 </head>
 <body>
   <div class="header">
@@ -192,34 +184,32 @@
     </div>
   </div>
   
-  <h2>Integrated search for OSINT Information</h2>
+  <h2>Integrated Search for OSINT Information</h2>
   
   <div class="main-container">
     <div class="input-container">
       <input type="text" id="inputField" placeholder="Enter IP Address or Domain" />
     </div>
-    
+
     <div class="checkbox-container" id="ipCheckboxes">
-      <label><input type="checkbox" id="abuseipdb-ip" onclick="openAbuseIPDB()"> IP.AbuseIPDB</label>
-      <label><input type="checkbox" id="alienvault-ip" onclick="openAlienVault()"> IP.AlienVault OTX</label>
-      <label><input type="checkbox" id="talos-ip" onclick="openTalos()"> IP.Talos Intelligence</label>
-      <label><input type="checkbox" id="virustotal-ip" onclick="virustotal()"> IP.VirusTotal</label>
-      <label><input type="checkbox" id="whois-ip" onclick="openWhois()"> IP.Whois (DomainTools)</label>
-    </div>
-    
-    <div class="checkbox-container" id="domainCheckboxes">
-      <label><input type="checkbox" id="abuseipdb-domain" onclick="openAbuseIPDBDomain()"> D.AbuseIPDB</label>
-      <label><input type="checkbox" id="alienvault-domain" onclick="openAlienVaultDomain()"> D.AlienVault OTX</label>
-      <label><input type="checkbox" id="talos-domain" onclick="openTalosDomain()"> D.Talos Intelligence</label>
-      <label><input type="checkbox" id="threatminer-domain" onclick="openThreatMiner()"> D.ThreatMiner</label>
-      <label><input type="checkbox" id="virustotal-domain" onclick="openVirusTotal()"> D.VirusTotal</label>
-      <label><input type="checkbox" id="bluecoat-domain" onclick="openBluecoat()"> D.Bluecoat SiteReview</label>
-      <label><input type="checkbox" id="whois-domain" onclick="openWhoisDomain()"> D.Whois (DomainTools)</label>
-      <label><input type="checkbox" id="sslLabs-domain" onclick="openSslLabs()"> SSL Labs</label>
-      <label><input type="checkbox" id="crtsh-domain" onclick="openCrtsh()"> Crt.sh</label>
+      <label><input type="checkbox" id="abuseipdb-ip" onclick="openUrl('ip', 'abuseipdb')"> IP.AbuseIPDB</label>
+      <label><input type="checkbox" id="alienvault-ip" onclick="openUrl('ip', 'alienvault')"> IP.AlienVault OTX</label>
+      <label><input type="checkbox" id="talos-ip" onclick="openUrl('ip', 'talos')"> IP.Talos Intelligence</label>
+      <label><input type="checkbox" id="virustotal-ip" onclick="openUrl('ip', 'virustotal')"> IP.VirusTotal</label>
+      <label><input type="checkbox" id="whois-ip" onclick="openUrl('ip', 'whois')"> IP.Whois (DomainTools)</label>
     </div>
 
-    <div class="results" id="results"></div>
+    <div class="checkbox-container" id="domainCheckboxes">
+      <label><input type="checkbox" id="abuseipdb-domain" onclick="openUrl('domain', 'abuseipdb')"> D.AbuseIPDB</label>
+      <label><input type="checkbox" id="alienvault-domain" onclick="openUrl('domain', 'alienvault')"> D.AlienVault OTX</label>
+      <label><input type="checkbox" id="talos-domain" onclick="openUrl('domain', 'talos')"> D.Talos Intelligence</label>
+      <label><input type="checkbox" id="threatminer-domain" onclick="openUrl('domain', 'threatminer')"> D.ThreatMiner</label>
+      <label><input type="checkbox" id="virustotal-domain" onclick="openUrl('domain', 'virustotal')"> D.VirusTotal</label>
+      <label><input type="checkbox" id="bluecoat-domain" onclick="openUrl('domain', 'bluecoat')"> D.Bluecoat SiteReview</label>
+      <label><input type="checkbox" id="whois-domain" onclick="openUrl('domain', 'whois')"> D.Whois (DomainTools)</label>
+      <label><input type="checkbox" id="sslLabs-domain" onclick="openUrl('domain', 'sslLabs')"> SSL Labs</label>
+      <label><input type="checkbox" id="crtsh-domain" onclick="openUrl('domain', 'crtsh')"> Crt.sh</label>
+    </div>
   </div>
 
   <h1>Open-Source Threat Intelligence Platforms</h1>
@@ -234,7 +224,7 @@
 
   <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
   
-  <table>
+    <table>
     <thead>
       <tr>
         <th>S.No</th>
@@ -246,29 +236,9 @@
     <tbody id="table-body"></tbody>
   </table>
 
+  
   <script>
-    fetch('table-content.html').then(response => response.text()).then(data => {
-      document.getElementById('table-body').innerHTML = data;
-    }).catch(error => console.error('Error loading table content:', error));
-
-    function searchTable() {
-      const input = document.getElementById('search-bar');
-      const filter = input.value.toLowerCase();
-      const rows = document.querySelectorAll('#table-body tr');
-      rows.forEach(row => {
-        const cells = row.getElementsByTagName('td');
-        let match = false;
-        for (let i = 0; i < cells.length; i++) {
-          const cell = cells[i];
-          if (cell && cell.textContent.toLowerCase().indexOf(filter) > -1) {
-            match = true;
-            break;
-          }
-        }
-        row.style.display = match ? '' : 'none';
-      });
-    }
-
+    // Function to fetch and display weather information based on IP address
     window.onload = getWeatherByIP;
 
     function getWeatherByIP() {
@@ -296,12 +266,60 @@
         document.getElementById('weather-data').innerHTML = 'Unable to fetch location data.';
       });
     }
+
+    // Function to open specific URL based on selected IP or domain and platform
+    function openUrl(type, platform) {
+      const input = document.getElementById('inputField').value.trim();
+      if (!input) {
+        alert('Please enter a valid IP address or domain.');
+        return;
+      }
+      const isIP = /^[0-9.]+$/.test(input);
+      if ((type === 'ip' && !isIP) || (type === 'domain' && isIP)) {
+        alert(`The selected option is not applicable for the input type.`);
+        return;
+      }
+      let url = '';
+      if (platform === 'abuseipdb') url = `https://www.abuseipdb.com/check/${input}`;
+      if (platform === 'alienvault') url = type === 'ip' ? `https://otx.alienvault.com/indicator/ip/${input}` : `https://otx.alienvault.com/indicator/domain/${input}`;
+      if (platform === 'talos') url = `https://www.talosintelligence.com/reputation_center/lookup?search=${input}`;
+      if (platform === 'virustotal') url = type === 'ip' ? `https://www.virustotal.com/gui/ip-address/${input}` : `https://www.virustotal.com/gui/domain/${input}`;
+      if (platform === 'whois') url = `https://whois.domaintools.com/${input}`;
+      if (platform === 'threatminer') url = `https://www.threatminer.org/domain.php?q=${input}`;
+      if (platform === 'bluecoat') url = `https://sitereview.bluecoat.com/#/lookup-result/${input}`;
+      if (platform === 'sslLabs') url = `https://www.ssllabs.com/ssltest/analyze.html?d=${input}`;
+      if (platform === 'crtsh') url = `https://crt.sh/?q=${input}`;
+      if (url) {
+        window.open(url, '_blank');
+      }
+    }
+    
+        fetch('table-content.html').then(response => response.text()).then(data => {
+      document.getElementById('table-body').innerHTML = data;
+    }).catch(error => console.error('Error loading table content:', error));
+    
+    function searchTable() {
+      const input = document.getElementById('search-bar').value.toLowerCase();
+      const rows = document.querySelectorAll('.table tr');
+      
+      rows.forEach(row => {
+        const cols = row.querySelectorAll('td');
+        let text = '';
+        cols.forEach(col => {
+          text += col.textContent.toLowerCase();
+        });
+        if (text.includes(input)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
   </script>
 
-  <!-- Weather info box at top right -->
+  <!-- Weather Information box -->
   <div class="weather-info" id="weather-info">
     <p id="weather-data">Fetching weather info...</p>
   </div>
-
 </body>
 </html>
