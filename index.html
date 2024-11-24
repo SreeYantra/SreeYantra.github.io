@@ -334,17 +334,17 @@
       const ipapiKey = '2d69ff6d0c0f4229b1e6a279653eeb45';
       const weatherApiKey = '51fe0d5051214c0abd571136242411';
 
-      fetch(https://api.ipapi.com/api/check?access_key=${ipapiKey}).then(response => response.json()).then(data => {
+      fetch(`https://api.ipapi.com/api/check?access_key=${ipapiKey}`).then(response => response.json()).then(data => {
         const city = data.city;
         const latitude = data.latitude;
         const longitude = data.longitude;
 
-        fetch(https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${latitude},${longitude}&aqi=no)
+        fetch(`https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${latitude},${longitude}&aqi=no`)
           .then(weatherResponse => weatherResponse.json())
           .then(weatherData => {
             const weather = weatherData.current.condition.text;
             const temperature = weatherData.current.temp_c;
-            document.getElementById('weather-data').innerHTML = Weather in ${city}: ${weather}, ${temperature}°C;
+            document.getElementById('weather-data').innerHTML = `Weather in ${city}: ${weather}, ${temperature}°C`;
           })
           .catch(error => {
             console.error('Error fetching weather data:', error);
