@@ -177,21 +177,6 @@
             <button onclick="submitFeedback()">Submit Feedback</button>
             <div id="feedbackList"></div>
         </div>
-
-        <!-- Interactive 3D Map -->
-        <div id="3d-map"></div>
-
-        <!-- AI Analysis Result -->
-        <button id="analyzeBtn" onclick="analyzeWithAI()">Analyze with AI</button>
-        <div id="aiAnalysisResult"></div>
-
-        <!-- AR Search Example -->
-        <h2>AR Visualization</h2>
-        <p>Scan a QR code or printed URL/IP with an AR app to see OSINT details in AR.</p>
-
-        <!-- Dark Web Search -->
-        <button onclick="searchDarkWeb()">Search Dark Web</button>
-        <div id="darkWebResults"></div>
     </div>
 
     <!-- Note Section for Search -->
@@ -223,21 +208,26 @@
         </tbody>
     </table>
 
-    <script src="https://cdn.jsdelivr.net/npm/three"></script>
-    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
-
     <script>
-        // Placeholder function to simulate AI-powered analysis (like GPT-3)
-        function analyzeWithAI() {
+        // Placeholder function to simulate searching for IP reputations
+        function openAbuseIPDB() {
             const inputValue = document.getElementById('inputField').value;
-            document.getElementById('aiAnalysisResult').innerHTML = "AI Analysis for " + inputValue + ": This domain/IP seems suspicious based on recent patterns.";
+            alert("Searching AbuseIPDB for IP: " + inputValue);
         }
 
-        // Placeholder for Dark Web Search
-        function searchDarkWeb() {
+        function openAlienVault() {
             const inputValue = document.getElementById('inputField').value;
-            document.getElementById('darkWebResults').innerHTML = "Searching for " + inputValue + " in the dark web...";
-            // Simulate real-time search and show results
+            alert("Searching AlienVault for IP: " + inputValue);
+        }
+
+        function openTalos() {
+            const inputValue = document.getElementById('inputField').value;
+            alert("Searching Talos Intelligence for IP: " + inputValue);
+        }
+
+        function virustotal() {
+            const inputValue = document.getElementById('inputField').value;
+            alert("Searching VirusTotal for IP: " + inputValue);
         }
 
         // Feedback submission
@@ -249,28 +239,7 @@
             document.getElementById('feedbackList').innerHTML += feedbackHtml;
         }
 
-        // Interactive 3D Map for IP/Domain Location (basic Three.js setup)
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById("3d-map").appendChild(renderer.domElement);
-
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 0x0077ff });
-        const sphere = new THREE.Mesh(geometry, material);
-        scene.add(sphere);
-
-        camera.position.z = 5;
-        function animate() {
-            requestAnimationFrame(animate);
-            sphere.rotation.x += 0.01;
-            sphere.rotation.y += 0.01;
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Placeholder function to simulate searching for IP reputations
+        // Function to search the OSINT table
         function searchTable() {
             const input = document.getElementById("search-bar").value.toLowerCase();
             const rows = document.getElementById("table-body").getElementsByTagName("tr");
@@ -286,6 +255,33 @@
                 rows[i].style.display = match ? "" : "none";
             }
         }
+
+        // Example OSINT resources for the table
+        const osintResources = [
+            { serial: 1, type: "IP", url: "https://www.abuseipdb.com/", purpose: "Check for malicious IP reputation" },
+            { serial: 2, type: "IP", url: "https://otx.alienvault.com/", purpose: "Check IP against AlienVault OTX" },
+            { serial: 3, type: "Domain", url: "https://www.virustotal.com/", purpose: "Check domain against VirusTotal" },
+            { serial: 4, type: "Domain", url: "https://www.crt.sh/", purpose: "Search certificate transparency logs" },
+            { serial: 5, type: "IP", url: "https://www.talosintelligence.com/", purpose: "Check IP against Talos Intelligence" },
+        ];
+
+        // Populate the table with OSINT resources
+        function populateTable() {
+            const tableBody = document.getElementById('table-body');
+            osintResources.forEach((resource) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${resource.serial}</td>
+                    <td>${resource.type}</td>
+                    <td><a href="${resource.url}" target="_blank">${resource.url}</a></td>
+                    <td>${resource.purpose}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Initialize the table
+        window.onload = populateTable;
     </script>
 
 </body>
