@@ -160,7 +160,7 @@
       margin: 0;
     }
 
-/* Position weather info in top right corner */
+/* Position weather info in top right corner 
         #weather-data {
             position: absolute;
             top: 20px;
@@ -170,7 +170,8 @@
             padding: 10px;
             border-radius: 5px;
             font-size: 16px;
-        }
+        } */
+
           footer {
             background-color: #143;
             color: white;
@@ -200,8 +201,9 @@
   
   <h2>Integrated Search for OSINT Information</h2>
 
-<!-- Weather Information Section -->
+<!-- Weather Information Section
   <div id="weather-data"></div>
+ -->
   
   <div class="main-container">
     <div class="input-container">
@@ -239,8 +241,10 @@
     <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
   </div>
 
+  <div class="reference">
 <!-- Link to the Cyber Fraud Awareness page -->
-        <a href="=fraud_awareness.html">Go to Cyber Fraud Awareness</a>
+        <a href="fraud_awareness.html">Cyber Fraud Awareness</a>
+    </div>
   
   <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
   
@@ -258,7 +262,7 @@
 
   
   <script>
-
+/*
 function getWeatherByIP() {
             const ipapiKey = 'c9ec79e81ef128c09f556dd5c1d5b601';  // Replace with your ipapi key 
             const weatherApiKey = 'b07abd4a45d73517f2db6caa0625b9b9';  // Replace with your OpenWeatherMap key
@@ -321,7 +325,7 @@ function getWeatherByIP() {
 
         // Call the function when the page loads
         window.onload = getWeatherByIP;
-    
+    */
     // Function to open specific URL based on selected IP or domain and platform
     function openUrl(type, platform) {
       const input = document.getElementById('inputField').value.trim();
@@ -381,7 +385,12 @@ function getWeatherByIP() {
 }
   </script>
   
-<div id="ip-details"></div>
+
+<!-- 
+  <p>This paragraph will not be displayed</p>
+  <d<div id="ip-details"></div>
+-->
+
 
     <footer>
         <p>&copy; 2024 My Website. All rights reserved.</p>
