@@ -171,7 +171,22 @@
             border-radius: 5px;
             font-size: 16px;
         }
-    
+          footer {
+            background-color: #143;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
      </style>
 </head>
 <body>
@@ -224,6 +239,9 @@
     <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
   </div>
 
+<!-- Link to the Cyber Fraud Awareness page -->
+        <a href="=fraud_awareness.html">Go to Cyber Fraud Awareness</a>
+  
   <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
   
     <table>
@@ -365,5 +383,10 @@ function getWeatherByIP() {
   
 <div id="ip-details"></div>
 
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+
+  
 </body>
 </html>
