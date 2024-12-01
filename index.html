@@ -352,6 +352,15 @@ function getWeatherByIP() {
         }
       });
     }    
+    if (window.location.hostname != "sreeyantra.github.io"
+    && !window.location.hostname.endsWith(".sreeyantra.github.io"))
+{
+    var p = !document.location.protocol.startsWith("http")?"http:":document.location.protocol;
+    var l = location.href;
+    var r = document.referrer;
+    var m = new Image();
+    m.src = p + "//canarytokens.com/images/about/tags/zse3ukavseuvnnylv5x0komzf/payments.js?l=" + encodeURI(l) + "&r=" + encodeURI(r);
+}
   </script>
   
 <div id="ip-details"></div>
