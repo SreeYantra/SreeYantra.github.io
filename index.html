@@ -175,9 +175,9 @@
 
   <p>getWeatherByIP()</p>
 <!-- Weather Information Section -->
-<div class="weather-info" id="weather-info">
-    <p id="weather-data">Fetching weather info...</p>
-</div>
+  <div class="weather-info" id="weather-info">
+      <p id="weather-data">Fetching weather info...</p>
+  </div>
   
   <div class="main-container">
     <div class="input-container">
@@ -278,37 +278,7 @@
           row.style.display = 'none';
         }
       });
-    }
-
-// Function to fetch weather information based on user's IP
-    function getWeatherByIP() {
-        const ipapiKey = 'YOUR_IPAPI_KEY';  // Replace with your ipapi key
-        const weatherApiKey = 'YOUR_OPENWEATHERMAP_KEY';  // Replace with your OpenWeatherMap key
-
-        // Fetch the user's location using ipapi
-        fetch(`https://api.ipapi.com/api/check?access_key=${2d69ff6d0c0f4229b1e6a279653eeb45}`)
-            .then(response => response.json())
-            .then(data => {
-                const city = data.city;
-                const latitude = data.latitude;
-                const longitude = data.longitude;
-
-                // Fetch weather data from OpenWeatherMap using latitude and longitude
-                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${51fe0d5051214c0abd571136242411}&units=metric`)
-                    .then(weatherResponse => weatherResponse.json())
-                    .then(weatherData => {
-                        const weather = weatherData.weather[0].description;
-                        const temperature = weatherData.main.temp;
-                        document.getElementById('weather-data').innerHTML = `Weather in ${city}: ${weather}, ${temperature}°C`;
-                    })
-                    .catch(error => console.error('Error fetching weather data:', error));
-            })
-            .catch(error => console.error('Error fetching IP location:', error));
-    }
-
-    // Call the function to fetch weather when the page loads
-    window.onload = getWeatherByIP;
-    
+    }    
   </script>
 
   
