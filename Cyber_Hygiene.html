@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cyber Hygiene Checklist Generator</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .question input[type="radio"],
+        .question input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        #checklist {
+            display: none;
+        }
+
+        #result {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .checklist-item {
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            margin-top: 20px;
+            border-radius: 5px;
+            height: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .completed {
+            color: green;
+        }
+
+        .incomplete {
+            color: red;
+        }
+
+        .suggestions {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .suggestions h3 {
+            margin-top: 0;
+        }
+
+        .suggestion-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cyber Hygiene Checklist Generator</h1>
+    <p>Take control of your online security with a personalized checklist!</p>
+</header>
+
+<div class="container">
+
+    <div id="intro">
+        <h2>Start Your Cyber Hygiene Journey</h2>
+        <p>Answer the following questions to receive a customized checklist with recommendations to improve your cyber hygiene.</p>
+        <button class="button" onclick="showQuestions()">Start</button>
+    </div>
+
+    <div id="questions">
+        <h2>Cyber Hygiene Questionnaire</h2>
+        <div class="question">
+            <label for="use-type">Are you using this for personal or business use?</label><br>
+            <input type="radio" id="personal" name="use-type" value="personal">
+            <label for="personal">Personal</label>
+            <input type="radio" id="business" name="use-type" value="business">
+            <label for="business">Business</label>
+        </div>
+
+        <div class="question">
+            <label for="password-manager">Do you use a password manager?</label><br>
+            <input type="radio" id="password-yes" name="password-manager" value="yes">
+            <label for="password-yes">Yes</label>
+            <input type="radio" id="password-no" name="password-manager" value="no">
+            <label for="password-no">No</label>
+        </div>
+
+        <div class="question">
+            <label for="two-factor">Do you use two-factor authentication (2FA) on major accounts?</label><br>
+            <input type="radio" id="2fa-yes" name="two-factor" value="yes">
+            <label for="2fa-yes">Yes</label>
+            <input type="radio" id="2fa-no" name="two-factor" value="no">
+            <label for="2fa-no">No</label>
+        </div>
+
+        <div class="question">
+            <label for="updates">Do you regularly update your software and apps?</label><br>
+            <input type="radio" id="updates-yes" name="updates" value="yes">
+            <label for="updates-yes">Yes</label>
+            <input type="radio" id="updates-no" name="updates" value="no">
+            <label for="updates-no">No</label>
+        </div>
+
+        <div class="question">
+            <label for="email-security">Do you use email security features like encryption and spam filtering?</label><br>
+            <input type="radio" id="email-yes" name="email-security" value="yes">
+            <label for="email-yes">Yes</label>
+            <input type="radio" id="email-no" name="email-security" value="no">
+            <label for="email-no">No</label>
+        </div>
+
+        <button class="button" onclick="generateChecklist()">Generate My Checklist</button>
+    </div>
+
+    <div id="checklist">
+        <h2>Your Cyber Hygiene Checklist</h2>
+        <div class="checklist-item" id="password-check">
+            <p>Password Management: <span id="password-status" class="incomplete">Incomplete</span></p>
+        </div>
+        <div class="checklist-item" id="twofa-check">
+            <p>Two-Factor Authentication: <span id="2fa-status" class="incomplete">Incomplete</span></p>
+        </div>
+        <div class="checklist-item" id="updates-check">
+            <p>Software and App Updates: <span id="updates-status" class="incomplete">Incomplete</span></p>
+        </div>
+        <div class="checklist-item" id="email-check">
+            <p>Email Security: <span id="email-status" class="incomplete">Incomplete</span></p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div id="result">
+            <h3>Checklist Completion:</h3>
+            <p id="completion-status"></p>
+        </div>
+
+        <div id="suggestions"></div>
+    </div>
+
+</div>
+
+<script>
+    function showQuestions() {
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('questions').style.display = 'block';
+    }
+
+    function generateChecklist() {
+        var passwordManager = document.querySelector('input[name="password-manager"]:checked');
+        var twoFactor = document.querySelector('input[name="two-factor"]:checked');
+        var updates = document.querySelector('input[name="updates"]:checked');
+        var emailSecurity = document.querySelector('input[name="email-security"]:checked');
+
+        if (!passwordManager || !twoFactor || !updates || !emailSecurity) {
+            alert('Please answer all the questions before generating your checklist!');
+            return;
+        }
+
+        var passwordStatus = passwordManager.value === 'yes' ? 'Complete' : 'Incomplete';
+        var twoFaStatus = twoFactor.value === 'yes' ? 'Complete' : 'Incomplete';
+        var updatesStatus = updates.value === 'yes' ? 'Complete' : 'Incomplete';
+        var emailStatus = emailSecurity.value === 'yes' ? 'Complete' : 'Incomplete';
+
+        document.getElementById('password-status').innerText = passwordStatus;
+        document.getElementById('2fa-status').innerText = twoFaStatus;
+        document.getElementById('updates-status').innerText = updatesStatus;
+        document.getElementById('email-status').innerText = emailStatus;
+
+        document.getElementById('password-status').className = passwordStatus.toLowerCase();
+        document.getElementById('2fa-status').className = twoFaStatus.toLowerCase();
+        document.getElementById('updates-status').className = updatesStatus.toLowerCase();
+        document.getElementById('email-status').className = emailStatus.toLowerCase();
+
+        var completedTasks = [passwordStatus, twoFaStatus, updatesStatus, emailStatus].filter(function(status) {
+            return status === 'Complete';
+        }).length;
+
+        var completionPercentage = (completedTasks / 4) * 100;
+        document.getElementById('progress').style.width = completionPercentage + '%';
+
+        document.getElementById('checklist').style.display = 'block';
+        document.getElementById('result').style.display = 'block';
+
+        document.getElementById('completion-status').innerText = 'You have completed ' + completedTasks + ' out of 4 tasks (' + completionPercentage.toFixed(0) + '%).';
+
+        displaySuggestions(passwordStatus, twoFaStatus, updatesStatus, emailStatus);
+    }
+
+    function displaySuggestions(passwordStatus, twoFaStatus, updatesStatus, emailStatus) {
+        var suggestionsContainer = document.getElementById('suggestions');
+        suggestionsContainer.innerHTML = '';
+
+        if (passwordStatus === 'Incomplete') {
+            var passwordSuggestions = `
+                <div class="suggestions">
+                    <h3>Password Management Suggestions:</h3>
+                    <div class="suggestion-item">Consider using a password manager to store and generate strong passwords.</div>
+                    <div class="suggestion-item">Open Source Alternatives: 
+                        <ul>
+                            <li><a href="https://keepass.info/" target="_blank">KeePass</a> (Available for Windows, macOS, Linux, iOS, Android)</li>
+                            <li><a href="https://bitwarden.com/" target="_blank">Bitwarden</a> (Available for all platforms)</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            suggestionsContainer.innerHTML += passwordSuggestions;
+        }
+
+        if (twoFaStatus === 'Incomplete') {
+            var twoFaSuggestions = `
+                <div class="suggestions">
+                    <h3>Two-Factor Authentication Suggestions:</h3>
+                    <div class="suggestion-item">Enable two-factor authentication (2FA) for added account security.</div>
+                    <div class="suggestion-item">Use 2FA apps like Google Authenticator or Authy for mobile devices.</div>
+                </div>
+            `;
+            suggestionsContainer.innerHTML += twoFaSuggestions;
+        }
+
+        if (updatesStatus === 'Incomplete') {
+            var updatesSuggestions = `
+                <div class="suggestions">
+                    <h3>Software & App Updates Suggestions:</h3>
+                    <div class="suggestion-item">Ensure your operating system and applications are regularly updated.</div>
+                    <div class="suggestion-item">Enable automatic updates for most applications and software.</div>
+                </div>
+            `;
+            suggestionsContainer.innerHTML += updatesSuggestions;
+        }
+
+        if (emailStatus === 'Incomplete') {
+            var emailSuggestions = `
+                <div class="suggestions">
+                    <h3>Email Security Suggestions:</h3>
+                    <div class="suggestion-item">Enable email encryption and use strong passwords for your email accounts.</div>
+                    <div class="suggestion-item">Consider using secure email services like ProtonMail.</div>
+                </div>
+            `;
+            suggestionsContainer.innerHTML += emailSuggestions;
+        }
+    }
+</script>
+
+</body>
+</html>
