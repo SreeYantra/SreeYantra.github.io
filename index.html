@@ -87,7 +87,15 @@
     .checkbox-container input[type="checkbox"] {
       transform: scale(0.9);
     }
-    
+    	        nav {
+            display: flex;
+            justify-content: center;
+            color: red;
+            background-color: #e5e5e5;
+            padding: 15px;
+            gap: 15px;
+        }
+        
         table {
       width: 100%;
       border-collapse: collapse;
@@ -241,12 +249,13 @@
     <p><strong>Note:</strong> Click URLs based on your own risk. Always verify the source for accuracy and trustworthiness.</p>
   </div>
 
-  <div class="reference">
+<nav>
+    <div class="reference">
 <!-- Link to the Cyber Fraud Awareness page -->
         <a href="fraud_awareness.html">Cyber Fraud Awareness</a>
     </div>
   
-<div class="reference">
+    <div class="reference">
 <!-- Link to the Phishing_Awareness.html -->
         <a href="Phishing_Awareness.html">Phishing_Awareness</a>
     </div>
@@ -275,6 +284,8 @@
 <!-- Link to the Threat_Map..html -->
         <a href="Threat_Map..html">Threat_Map</a>
     </div>
+    
+</nav>    
   
   <input type="text" id="search-bar" placeholder="Search by type, URL, or purpose" onkeyup="searchTable()" />
   
