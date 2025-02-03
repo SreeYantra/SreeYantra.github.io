@@ -132,11 +132,50 @@
             margin: 0;
             font-size: 16px;
         }
+     /* Golden Ratio Values */
+        :root {
+            --base-size: 40px; /* Starting size */
+            --golden-ratio: 1.618;
+            --button-size: calc(var(--base-size) * var(--golden-ratio)); /* Button diameter */
+            --font-size: calc(var(--base-size) * 0.5); /* Icon size based on the base size */
+            --hover-color: #FFD700; /* Golden color */
+            --active-color: #FFB300; /* Darker golden color */
+        }
 
+        /* Button Styling */
+        .home-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: var(--font-size); /* Icon size adjusted by golden ratio */
+            width: var(--button-size);  /* Button width adjusted by golden ratio */
+            height: var(--button-size);  /* Button height adjusted by golden ratio */
+            background-color: var(--hover-color); /* Golden background */
+            color: white;
+            border: none;
+            border-radius: 50%; /* Circular button */
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Hover Effects */
+        .home-button:hover {
+            background-color: var(--active-color); /* Darker golden hover color */
+            transform: scale(1.1); /* Button grows slightly */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+
+        /* Click Effect */
+        .home-button:active {
+            transform: scale(0.98); /* Button shrinks slightly when clicked */
+        }
     </style>
 </head>
 <body>
-
+    <!-- Home Button with Logo (No Text) -->
+    <button class="home-button" onclick="goHome()">
+        <i class="fas fa-home"></i>
+    </button>
     <!-- Header -->
     <header>
         <h1>Cybersecurity & SOC Awareness</h1>
@@ -315,6 +354,10 @@
             } else {
                 element.classList.add("active");
             }
+        }
+         // JavaScript function to redirect to the home page
+        function goHome() {
+            window.location.href = "index.html"; // Replace with your actual home page URL
         }
     </script>
 </body>
